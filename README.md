@@ -31,33 +31,33 @@ notifier.send({
 
 ### notifier.send(options, callback)
 
-- Send message to Slack channel.
+Send message to Slack channel.
 
-#### options
+#### Options
 
-- For setting `attachement` of message, Please see [Slack API documentation](https://api.slack.com/docs/message-attachments) for reference.
+For setting `attachement` of message, Please see [Slack API documentation](https://api.slack.com/docs/message-attachments) for reference.
 
 #### options.text
 
-- If you want to display JavaScript object information or JSON (JavaScript Object Notation) format string for notification, You can pass `{ text: [{ title: TITLE, code: CODE  }] }` into options to display code blocks.
+If you want to display JavaScript object information or JSON (JavaScript Object Notation) format string for notification, You can pass `{ text: [{ title: TITLE, code: CODE  }] }` into options to display code blocks.
 
 #### options.attachements
 
-- It used for customized your notifications.
+It used for customized your notifications.
 
-- If your pass `{ attachements: [] }` for options, it will override default settings.
+If your pass `{ attachements: [] }` for options, it will override default settings.
 
 ### notifier.success(options, callback)
 
-- Send message that indicates a successful or positive action to Slack channel.
+Send message that indicates a successful or positive action to Slack channel.
 
 ### notifier.warning(options, callback)
 
-- Send message that indicates a warning that might need attention to Slack channel.
+Send message that indicates a warning that might need attention to Slack channel.
 
 ### notifier.danger(options, callback)
 
-- Send message that indicates a dangerous or potentially negative action to Slack channel.
+Send message that indicates a dangerous or potentially negative action to Slack channel.
 
 ## License
 
