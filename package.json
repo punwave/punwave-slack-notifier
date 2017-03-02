@@ -1,7 +1,7 @@
 {
   "name": "punwave-slack-notifier",
   "version": "0.0.1",
-  "description": "A code friendly notifier to send messages to Slack channel via webhook",
+  "description": "Code friendly notifier to send messages to Slack channel via webhook",
   "main": "index.js",
   "scripts": {
     "prebuild": "rimraf lib",
