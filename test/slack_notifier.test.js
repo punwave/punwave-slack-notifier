@@ -33,6 +33,14 @@ describe('SlackNotifier', () => {
       notifier.send({ text: [{ title: 'test', code: 'ok' }] })
       expect(spy.calledOnce).to.be.true
     })
+
+    it('should override default settings for customized messages', () => {
+      const notifier = new SlackNotifier('https://hooks.slack.com/services/TOKEN')
+      const message = { title: 'title', text: 'test', attachments: [] }
+      notifier.send(message)
+      expect(spy.calledOnce).to.be.true
+      expect(spy.args[0][0]).to.eql(message)
+    })
   })
 
   describe('#success()', () => {
