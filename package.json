@@ -1,6 +1,6 @@
 {
   "name": "punwave-slack-notifier",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Code friendly notifier to send messages to Slack channel via webhook",
   "main": "index.js",
   "scripts": {
