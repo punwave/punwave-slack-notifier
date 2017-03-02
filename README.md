@@ -21,9 +21,9 @@ const notifier = new SlackNotifier(WEBHOOK_URI)
 
 notifier.send({
   text: 'This is a line of text.\nAnd this is another one.'
-}, (err, res) => {
+}, (err, response) => {
   if (err) console.error(err)
-  console.log(res)
+  console.log(response)
 })
 ```
 
@@ -39,7 +39,7 @@ For setting `attachement` of message, Please see [Slack API documentation](https
 
 #### options.text
 
-If you want to display JavaScript object information or JSON (JavaScript Object Notation) format string for notification, You can pass `{ text: [{ title: TITLE, code: CODE  }] }` into options to display code blocks.
+If you want to display JavaScript object information or JSON (JavaScript Object Notation) format string for notification, you can pass `{ text: [{ title: TITLE, code: CODE  }] }` into options to display code blocks.
 
 #### options.attachements
 
@@ -47,13 +47,19 @@ It used for customized your notifications.
 
 If your pass `{ attachements: [] }` for options, it will override default settings.
 
+---
+
 ### notifier.success(options, callback)
 
 Send message that indicates a successful or positive action to Slack channel.
 
+---
+
 ### notifier.warning(options, callback)
 
 Send message that indicates a warning that might need attention to Slack channel.
+
+---
 
 ### notifier.danger(options, callback)
 
