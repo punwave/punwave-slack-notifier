@@ -33,6 +33,8 @@ notifier.send({
 
 Send message to Slack channel.
 
+---
+
 #### Options
 
 For setting `attachement` of message, Please see [Slack API documentation](https://api.slack.com/docs/message-attachments) for reference.
