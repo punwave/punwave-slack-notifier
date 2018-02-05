@@ -17,7 +17,7 @@ $ npm install --save punwave-slack-notifier
 ```js
 const SlackNotifier = require('punwave-slack-notifier')
 
-const notifier = new SlackNotifier(WEBHOOK_URI)
+const notifier = new SlackNotifier(WEBHOOK_URL)
 
 notifier.send({
   text: 'This is a line of text.\nAnd this is another one.'
