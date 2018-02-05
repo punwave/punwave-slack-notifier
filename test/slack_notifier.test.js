@@ -18,12 +18,16 @@ describe('SlackNotifier', () => {
       expect(notifier).to.be.an.instanceof(SlackNotifier)
     })
 
-    it('should throw error if missing webhookUri', () => {
+    it('should throw error if missing webhookURL', () => {
       expect(() => new SlackNotifier()).to.throw(Error)
     })
 
-    it('should throw error if webhookUri not a string', () => {
-      expect(() => new SlackNotifier(false)).to.throw(Error)
+    it('should throw error if webhookURL not a string', () => {
+      expect(() => new SlackNotifier(false)).to.throw(TypeError)
+    })
+
+    it('should throw error if options not an object', () => {
+      expect(() => new SlackNotifier('https://hooks.slack.com/services/TOKEN', false)).to.throw(TypeError)
     })
   })
 
