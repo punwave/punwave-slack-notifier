@@ -27,7 +27,11 @@ class Notifier {
    * @param {function} callback
    * @return {function}
    */
-  send (options = {}, callback = () => {}) {
+  send (options = {}, callback) {
+    if (typeof callback !== 'undefined' && typeof callback !== 'function') {
+      throw new TypeError('Expected callback to be a function.')
+    }
+
     const attachment = {
       ...this.options.attachment,
       ...options,
@@ -37,7 +41,13 @@ class Notifier {
     }
     const settings = { ...this.options, attachments: [attachment] }
     const config = (options.attachments) ? options : settings
-    return this.slack.webhook(config, callback)
+
+    return new Promise((resolve, reject) => {
+      this.slack.webhook(config, (err, res) => {
+        if (err) return callback ? callback(err) : reject(err)
+        return callback ? callback(null, res) : resolve(res)
+      })
+    })
   }
 
   /**
@@ -47,7 +57,7 @@ class Notifier {
    * @param {function} callback
    * @return {function}
    */
-  success (options = {}, callback = () => {}) {
+  success (options = {}, callback) {
     options.color = 'good'
     return this.send(options, callback)
   }
@@ -59,7 +69,7 @@ class Notifier {
    * @param {function} callback
    * @return {function}
    */
-  warning (options = {}, callback = () => {}) {
+  warning (options = {}, callback) {
     options.color = 'warning'
     return this.send(options, callback)
   }
@@ -71,7 +81,7 @@ class Notifier {
    * @param {function} callback
    * @return {function}
    */
-  danger (options = {}, callback = () => {}) {
+  danger (options = {}, callback) {
     options.color = 'danger'
     return this.send(options, callback)
   }
