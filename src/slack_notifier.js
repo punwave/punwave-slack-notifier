@@ -17,7 +17,7 @@ class Notifier {
 
     this.slack = new Slack()
     this.slack.setWebhook(webhookURL)
-    this.options = options || { attachment: { footer: 'punwave-slack-notifier' } }
+    this.options = { attachment: { footer: 'punwave-slack-notifier' }, ...options }
   }
 
   /**
