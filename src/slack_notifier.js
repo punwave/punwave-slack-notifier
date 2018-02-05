@@ -2,17 +2,22 @@ import Slack from 'slack-node'
 import isEmpty from 'lodash/isEmpty'
 
 class Notifier {
-  constructor (webhookUri) {
-    if (typeof webhookUri === 'undefined') {
-      throw new Error('Missing webhookUri')
+  constructor (webhookURL, options) {
+    if (typeof webhookURL === 'undefined') {
+      throw new Error('Missing webhookURL.')
     }
 
-    if (typeof webhookUri !== 'string') {
-      throw new Error('Expected webhookUri to be a string')
+    if (typeof webhookURL !== 'string') {
+      throw new TypeError('Expected webhookURL to be a string.')
+    }
+
+    if (typeof options !== 'undefined' && typeof options !== 'object') {
+      throw new TypeError('Expected options to be an object.')
     }
 
     this.slack = new Slack()
-    this.slack.setWebhook(webhookUri)
+    this.slack.setWebhook(webhookURL)
+    this.options = options || { attachment: { footer: 'punwave-slack-notifier' } }
   }
 
   /**
@@ -22,28 +27,16 @@ class Notifier {
    * @param {function} callback
    * @return {function}
    */
-  send (options = {}, callback) {
+  send (options = {}, callback = () => {}) {
     const attachment = {
-      fallback: options.fallback,
-      color: options.color,
-      pretext: options.pretext,
-      author_name: options.author_name,
-      author_link: options.author_link,
-      author_icon: options.author_icon,
-      title: options.title,
-      title_link: options.title_link,
+      ...this.options.attachment,
+      ...options,
       text: (Array.isArray(options.text)) ? options.text.map(data => this._createCodeBlock(data.title, data.code)).join('') : options.text,
       mrkdwn_in: (Array.isArray(options.text)) ? ['text'] : options.mrkdwn_in,
-      image_url: options.image_url,
-      thumb_url: options.thumb_url,
-      footer: 'punwave-slack-notifier',
-      footer_icon: options.footer_icon,
       ts: parseInt(Date.now() / 1000)
     }
-
-    const settings = { attachments: [attachment] }
+    const settings = { ...this.options, attachments: [attachment] }
     const config = (options.attachments) ? options : settings
-
     return this.slack.webhook(config, callback)
   }
 
